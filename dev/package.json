@@ -1,0 +1,17 @@
+{
+  "name": "JavaScript-Blockchain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --watch dev -e js dev/api.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+  	"express": "^4.16.3",
+  	"nodemon": "^1.17.3",
+  	"sha256": "^0.2.0"
+  }
+}
