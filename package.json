@@ -1,11 +1,11 @@
 {
-  "name": "JavaScript-Blockchain",
+  "name": "javascript-blockchain",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is part of the project that I am part of: Blockchain UPV.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch dev -e js dev/api.js"
+    "start": "nodemon --watch dev -e js dev/networkNode.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,5 +15,14 @@
     "nodemon": "^1.19.4",
     "sha256": "^0.2.0",
     "uuid": "^8.3.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmararr1/blockchain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jmararr1/blockchain/issues"
+  },
+  "homepage": "https://github.com/jmararr1/blockchain#readme"
 }
