@@ -1,3 +1,3 @@
 # Blockchain with JS
 
-This is part of the project that I am part of: Blockchain UPV. 
+Learning how a Blockchain works and programming it using JS. 
