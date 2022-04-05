@@ -250,3 +250,7 @@ app.post('/receive-new-block', function(req, res){
         });
     }
 });
+
+app.get('/block-explorer', function(req,res) {
+    res.sendFile('./block-explorer/index.html', {root: __dirname});
+});
