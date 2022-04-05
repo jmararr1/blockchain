@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const Blockchain = require('./blockchain');
 const uuid = require('uuid/v1');
 const { json } = require('body-parser');
-const requestPromise = require('request-promise');
 
 const app = express();
 const bitcoin = new Blockchain();
@@ -40,6 +39,7 @@ app.get('/mine', function (req, res){
     const blockHash = bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
     const newBlock = bitcoin.createNewBlock(nonce, previousBlockHash, blockHash);
     
+    const requestPromises = [];
     bitcoin.networkNodes.forEach(networkNodeUrl => {
         const requestOptions = {
             uri: networkNodeUrl + '/receive-new-block',
@@ -49,29 +49,31 @@ app.get('/mine', function (req, res){
         };
 
         requestPromises.push(rp(requestOptions));
-
-        Promise.all(requestPromises)
-        .then(data => {
-            const requestOptions = {
-                uri: bitcoin.currentNodeUrl + '/transaction/broadcast',
-                method: 'POST',
-                body: {
-                    amount: 6.125,
-                    sender: "00",
-                    recipient:  nodeAdress
-                },
-                json: true
-            };
-            return rp(requestOptions);
-        })
     })
 
-    res.json({
-        note: "New block mined succesfully",
-        block: newBlock
-    });
+    Promise.all(requestPromises)
+    .then(data => {
+        const requestOptions = {
+            uri: bitcoin.currentNodeUrl + '/transaction/broadcast',
+            method: 'POST',
+            body: {
+                amount: 6.125,
+                sender: "00",
+                recipient: nodeAdress
+            },
+            json: true
+        };
 
-    bitcoin.createNewTransaction(6.125, "00", nodeAdress);
+        return rp(requestOptions);
+    })
+    
+
+    .then(data => {
+        res.json({
+            note: "New block mined succesfully",
+            block: newBlock
+        });
+    });
 });
 
 app.listen(port, function (){
